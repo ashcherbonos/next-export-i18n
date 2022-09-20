@@ -2,7 +2,6 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 var router = require('next/router');
 var React = require('react');
-var I18N = require('./../../i18n/index.js');
 var Mustache = require('mustache');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -13,6 +12,8 @@ var Mustache__default = /*#__PURE__*/_interopDefaultLegacy(Mustache);
 /**
  * The entry files for the separated hooks
  */
+let userland = {};
+const setupUserI18N = (userI18n) => { userland = userI18n; };
 /**
  * Calculates the default language from the user's language setting and the i18n object.
  * In case there is a language set in the browser which is also available as translation,
@@ -46,7 +47,7 @@ const getDefaultLanguage = (userI18n) => {
  */
 const i18n = () => {
     // cast to be typsafe
-    const userI18n = I18N;
+    const userI18n = userland;
     if (Object.keys(userI18n.translations).length < 1) {
         throw new Error(`Missing translations. Did you import and add the tranlations in 'i18n/index.js'?`);
     }
@@ -229,8 +230,13 @@ const LanguageSwitcher = ({ lang, children, shallow = false }) => {
     }
 };
 
+/**
+ * the unified entry file for the exported and compiled node module
+ */
+
 exports.LanguageSwitcher = LanguageSwitcher;
 exports["default"] = i18n;
+exports.setupUserI18N = setupUserI18N;
 exports.useLanguageQuery = useLanguageQuery;
 exports.useLanguageSwitcherIsActive = useLanguageSwitcherIsActive;
 exports.useSelectedLanguage = useSelectedLanguage;

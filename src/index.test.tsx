@@ -1,12 +1,15 @@
 /**
  * @jest-environment jsdom
  */
-import { i18n as userland } from "./../../i18n/index";
 import index from "./index";
 import { I18N } from "./types";
 const navigator = {
   language: "es",
 };
+
+let userland = {} as I18N;
+
+export const setupUserI18N = (userI18n: I18N): void => {userland = userI18n;}
 
 jest.mock("./../../i18n/index", () => {
   return {

@@ -2,8 +2,11 @@
  * The entry files for the separated hooks
  */
 
-import { i18n as userland } from "./../../i18n/index";
 import { Dictionary, I18N } from "./types";
+
+let userland = {} as I18N;
+
+export const setupUserI18N = (userI18n: I18N): void => {userland = userI18n;}
 
 /**
  * Calculates the default language from the user's language setting and the i18n object.
